@@ -1,3 +1,5 @@
+// For v1 we will only handle easy applies - can do others later.
+
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 
 // @getJobContainer()
@@ -27,10 +29,20 @@ async function processJob(outerContainer) {
     dataDiv.scrollIntoView();
     dataDiv.click();
 
+    // See if it has an easy apply
+    let node = dataDiv.children[0];
+    node = node.querySelectorAll('.job-card-list__footer-wrapper')[0];
+    node = node.querySelectorAll('.job-card-container__apply-method')?.[0];
+    if (node) {
+        // this is an easy apply job
+        console.log('This job is an easy apply job');
+    }
+
     await sleep(1000);
 }
 
 async function moveToNextPage() {
+    await sleep(100);
     const navContainer = document.getElementsByClassName('jobs-search-pagination jobs-search-results-list__pagination pv4')[0];
     const children = navContainer.childNodes;
     for (child of children) {
