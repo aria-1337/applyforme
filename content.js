@@ -19,11 +19,25 @@ async function getJobs() {
     return jobs;
 }
 
+async function processJob(outerContainer) {
+    // First we need to drill down into the actual data div to interact with it.
+    const holderDiv = outerContainer.children[0];
+    const dataDiv = holderDiv.children[0];
+    // select it (we need to scroll into view beforehand.)
+    dataDiv.scrollIntoView();
+    dataDiv.click();
+
+    await sleep(1000);
+}
+
 
 (async () => {
     while(true) {
+        await sleep(5000);
         const jobs = await getJobs();
-        console.log(jobs);
+        for (job of jobs) {
+            await processJob(job);
+        }
         break;
     }
 })();
