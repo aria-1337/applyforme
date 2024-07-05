@@ -37,6 +37,8 @@ async function processJob(outerContainer) {
         node = node[0];
         const applyButton = fetchApplyButton();
         applyButton.click();
+        const applyWindow = await fetchApplyWindow();
+        console.log(applyWindow);
         await sleep(100000);
     }
 }
@@ -53,6 +55,15 @@ function fetchApplyButton() {
     // This may be irrelevant to do twice - need to test.
     buttonContainer = buttonContainer.children[0];
     return buttonContainer.querySelectorAll('button')[0];
+}
+
+async function fetchApplyWindow() {
+    const modal = document.getElementsByClassName('jobs-easy-apply-modal');
+    if (modal.length > 0) {
+        return modal[0];
+    }
+    await sleep(100);
+    return await fetchApplyWindow();
 }
 
 async function moveToNextPage() {
