@@ -31,6 +31,7 @@ async function processJob(outerContainer) {
 }
 
 async function moveToNextPage() {
+    await sleep(100);
     const navContainer = document.getElementsByClassName('jobs-search-pagination jobs-search-results-list__pagination pv4')[0];
     const children = navContainer.childNodes;
     for (child of children) {
