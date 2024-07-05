@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "root.html"
+    },
+    "content_scripts": [{
+        "matches": ["https://www.linkedin.com/jobs/*"],
+        "js": ["content.js"]
+    }],
+    "name": "wellfound-apply",
+    "version": "0.0.1",
+    "permissions": ["activeTab"]
+}
