@@ -32,13 +32,27 @@ async function processJob(outerContainer) {
     // See if it has an easy apply
     let node = dataDiv.children[0];
     node = node.querySelectorAll('.job-card-list__footer-wrapper')[0];
-    node = node.querySelectorAll('.job-card-container__apply-method')?.[0];
-    if (node) {
-        // this is an easy apply job
-        console.log('This job is an easy apply job');
+    node = node.querySelectorAll('.job-card-container__apply-method');
+    if (node.length > 0) {
+        node = node[0];
+        const applyButton = fetchApplyButton();
+        applyButton.click();
+        await sleep(100000);
     }
+}
 
-    await sleep(1000);
+function fetchApplyButton() {
+    const containers = document.getElementsByClassName('mt5');
+    let buttonContainer;
+    for (const elem of containers) {
+        if (elem.className === 'mt5') {
+            buttonContainer = elem;
+        }
+    }
+    buttonContainer = buttonContainer.children[0];
+    // This may be irrelevant to do twice - need to test.
+    buttonContainer = buttonContainer.children[0];
+    return buttonContainer.querySelectorAll('button')[0];
 }
 
 async function moveToNextPage() {
@@ -55,7 +69,7 @@ async function moveToNextPage() {
 
 (async () => {
     while(true) {
-        await sleep(5000);
+        await sleep(1000);
         const jobs = await getJobs();
         for (job of jobs) {
             await processJob(job);
